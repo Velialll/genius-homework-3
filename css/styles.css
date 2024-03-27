@@ -95,6 +95,7 @@ ul {
 
 .button {
   padding: 16px 32px;
+  margin-bottom: 14px;
   color: var(--color-secondary-light);
   font-weight: 600;
   background-color: var(--color-brand-light);
@@ -102,6 +103,7 @@ ul {
   border-radius: 8px;
   cursor: pointer;
   font-size: 18px;
+  transition: color 0.2s, background-color 0.2s;
 }
 .button:hover {
   color: var(--color-brand-dark);
@@ -112,6 +114,7 @@ ul {
   color: var(--color-brand-dark);
   text-decoration: none;
   font-size: 18px;
+  transition: color 0.2s;
 }
 .link:hover {
   color: var(--color-brand-light);
@@ -120,28 +123,37 @@ ul {
   color: var(--color-secondary-light);
   font-size: 16px;
   text-decoration: none;
+  transition: color 0.2s;
 }
 .link-footer:hover {
   color: var(--color-brand-light);
   text-decoration: none;
 }
 /* Logo */
-.logo-header {
-  font-family: 'Play', sans-serif;
-  font-weight: 700;
-  line-height: 0.95;
-  text-transform: capitalize;
-}
+.logo-header,
 .logo-footer {
   font-family: 'Play', sans-serif;
-  font-size: 24px;
   font-weight: 700;
-  line-height: 0.88;
   text-transform: capitalize;
+}
+.logo-header {
+  line-height: 0.95;
+}
+.logo-footer {
+  font-size: 24px;
+  line-height: 0.88;
 }
 
 /* Header */
-
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-top: 32px;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.25);
+}
 .header-container {
   display: flex;
   align-items: center;
@@ -163,16 +175,34 @@ ul {
   display: flex;
   gap: 32px;
 }
-
+.address-icon {
+  transition: fill 0.2s;
+}
+.address-icon:hover {
+  fill: var(--color-brand-light);
+}
 /* Hero section */
 .hero-section {
   padding-bottom: 126px;
   padding-top: 123px;
-  background-image: url('../images/hero-section-background.jpg');
+  background-image: linear-gradient(
+      94deg,
+      rgba(255, 255, 255, 1) 9.65%,
+      rgba(255, 255, 255, 0.6) 26.08%,
+      rgba(255, 255, 255, 0.25) 52.74%,
+      rgba(255, 255, 255, 0) 74.46%
+    ),
+    url('../images/hero-section-background.jpg');
+  /* background-image: url('../images/hero-section-background.jpg'); */
+  background-position: right top;
   background-repeat: no-repeat;
-  background-position: center top;
-  background-size: cover;
+  background-size: 77% auto;
 }
+.hero-section .container {
+  position: relative;
+  left: 116px;
+}
+
 .hero-title {
   font-size: 18px;
   font-weight: 400;
@@ -203,18 +233,62 @@ ul {
   align-items: center;
 }
 .transformations-content {
+  max-width: 710px;
 }
 .photo-transformation {
-  display: block;
+  position: relative;
+}
+.small-icon-star,
+.medium-icon-star,
+.big-icon-star {
+  position: absolute;
+  animation-name: pulse-spin;
+  animation-duration: 5s;
+}
+.small-icon-star {
+  bottom: 332px;
+  right: 32px;
+  fill: var(--color-third-light);
+}
+.medium-icon-star {
+  top: 80px;
+  right: 0;
+  fill: var(--color-brand-light);
+  transform: rotate(-30deg);
+}
+.big-icon-star {
+  bottom: 216px;
+  left: 118px;
+  fill: var(--color-brand-dark);
+}
+@keyframes pulse-spin {
+  0% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(100deg);
+    fill: var(--color-brand-light);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: rotate(360deg);
+    transform: scale(1);
+  }
+}
+.woman-photo-before,
+.woman-photo-after {
+  position: relative;
+  border-radius: 200px 200px 200px 200px;
+  box-shadow: 0 4px 4px 0 rgba(168, 198, 245, 0.2);
 }
 .woman-photo-before {
-  border-radius: 200px 200px 200px 200px;
-  box-shadow: 0 4px 4px 0 rgba(168, 198, 245, 0.2);
+  bottom: -40px;
 }
 .woman-photo-after {
-  border-radius: 200px 200px 200px 200px;
-  box-shadow: 0 4px 4px 0 rgba(168, 198, 245, 0.2);
-  margin-left: 172px;
+  left: 172px;
+  bottom: -80px;
 }
 .transformation-title {
   margin-bottom: 40px;
@@ -292,6 +366,10 @@ ul {
   );
   border: 1px solid lightgray;
   border-radius: 4px 120px;
+  transition: transform 0.5s;
+}
+.procedure-card:hover {
+  transform: scale(1.01);
 }
 .procedure-title {
   color: var(--color-secondary-light);
@@ -304,7 +382,7 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 1;
+  flex-shrink: 0;
   width: 44px;
   height: 44px;
   padding: 0;
@@ -313,10 +391,14 @@ ul {
   border-radius: 50%;
   border: 1px solid var(--color-brand-dark);
   cursor: pointer;
+  transition: background-color 0.2s, fill 0.2s;
 }
-.carousel-button :hover {
+.carousel-button:hover {
   background-color: var(--color-brand-light);
   fill: var(--color-secondary-light);
+}
+.carousel-button.previous {
+  transform: rotate(180deg);
 }
 /* Contact-section */
 .contact-section {
@@ -350,8 +432,22 @@ ul {
 /* Footer */
 .footer {
   padding: 32px 0;
+  position: relative;
   background-color: var(--color-brand-dark);
+  background-image: url(/images/footer-background.png);
   background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.footer::after {
+  position: absolute;
+  bottom: 0;
+  background-repeat: no-repeat;
+  content: '';
+  right: 0;
+  width: 240px;
+  height: 152px;
+  background-image: url('/images/decor-vials-and-pipette.png');
 }
 .footer-container {
   display: flex;
@@ -383,26 +479,64 @@ ul {
   color: var(--color-secondary-light);
   font-size: 16px;
   text-decoration: none;
+  transition: color 0.2s;
 }
 .address-link:hover {
   color: var(--color-brand-light);
-  font-weight: 700;
   text-decoration: none;
 }
 .footer-address-icon {
   fill: var(--color-secondary-light);
+  transition: fill 0.2s;
+}
+.footer-address-icon:hover {
+  fill: var(--color-brand-light);
 }
 .privacy-policy {
   color: var(--color-secondary-light);
   font-size: 16px;
   text-decoration: none;
+  transition: color 0.2s;
 }
 .privacy-policy:hover {
   color: var(--color-brand-light);
-  font-weight: 700;
   text-decoration: none;
 }
 .data-protection {
   color: var(--color-third-light);
   font-size: 13px;
+}
+/* Modal */
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px 0;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+.backdrop.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 880px;
+  height: 100%;
+  max-height: 880px;
+  background-color: var(--color-secondary-light);
+  border-radius: 32px;
+}
+.modal-btn-close {
+  position: absolute;
+  top: 40px;
+  right: 40px;
 }
